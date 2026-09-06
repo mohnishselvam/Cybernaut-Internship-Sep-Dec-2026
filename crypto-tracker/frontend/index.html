@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Relay | Crypto Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="."><span class="brand-mark">M</span><span>Market Relay</span></a>
+      <div class="topbar-meta"><span class="status-dot"></span><span id="status">Connecting to feed</span><button id="refresh-button" class="refresh-button" type="button" aria-label="Refresh market data">Refresh</button></div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">Live market monitor / top assets</p>
+          <h1>Cryptocurrency Tracker</h1>
+          <p class="intro-copy">A compact view of the latest market capture from your CoinMarketCap scraper.</p>
+        </div>
+        <div class="capture-card"><span>Last capture</span><strong id="last-updated">--</strong></div>
+      </section>
+
+      <section class="metrics" aria-label="Market summary">
+        <article class="metric-card metric-card--dark"><span class="metric-label">Assets tracked</span><strong id="asset-count">--</strong><span class="metric-note">Latest scrape</span></article>
+        <article class="metric-card"><span class="metric-label">Market leaders</span><strong id="leader-name">--</strong><span class="metric-note" id="leader-price">--</span></article>
+        <article class="metric-card"><span class="metric-label">Average 24h move</span><strong id="average-change">--</strong><span class="metric-note">Across visible assets</span></article>
+        <article class="metric-card"><span class="metric-label">Top mover</span><strong id="top-mover">--</strong><span class="metric-note" id="top-mover-change">--</span></article>
+      </section>
+
+      <section class="trend-section">
+        <div class="section-heading"><div><p class="eyebrow">Historical signal</p><h2>Price trajectory</h2></div><label class="select-box"><span>Asset</span><select id="chart-coin"></select></label></div>
+        <div class="chart-wrap"><canvas id="price-chart" aria-label="Selected cryptocurrency price history"></canvas><p id="chart-empty" class="empty-state">Collect more captures to see a price trend.</p></div>
+      </section>
+
+      <section class="alerts-section">
+        <div class="section-heading"><div><p class="eyebrow">Personal monitoring</p><h2>Custom alerts</h2></div><button id="notification-button" class="refresh-button" type="button">Enable notifications</button></div>
+        <form id="alert-form" class="alert-form">
+          <label>Asset<select id="alert-coin" required></select></label>
+          <label>Metric<select id="alert-metric"><option value="price">Price</option><option value="change_24h">24h change</option></select></label>
+          <label>Condition<select id="alert-direction"><option value="above">Rises above</option><option value="below">Falls below</option></select></label>
+          <label>Threshold<input id="alert-threshold" type="number" step="any" required placeholder="e.g. 80000"></label>
+          <button class="add-alert" type="submit">Add alert</button>
+        </form>
+        <div id="alerts-list" class="alerts-list"><p class="empty-state">No custom alerts yet.</p></div>
+      </section>
+
+      <section class="market-section">
+        <div class="section-heading"><div><p class="eyebrow">Market snapshot</p><h2>Tracked assets</h2></div><label class="search-box"><span>Search</span><input id="search-input" type="search" placeholder="Name or symbol" autocomplete="off"></label></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Asset</th><th>Price</th><th>24h change</th><th>Market cap</th><th>Capture</th></tr></thead>
+            <tbody id="coin-table"><tr><td colspan="5" class="empty-state">Loading market data...</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer><span>Data source: local CSV capture</span><span id="row-count">--</span></footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
